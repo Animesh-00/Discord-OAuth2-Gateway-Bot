@@ -1,9 +1,11 @@
-#If You wabt a discord bot / any code in python and nodejs feel free to contact Animesh_exe on discord 
-#why this code you may ask?:
-#I mad this so that people could use this instead of pyaing 30$ to buy from some skechy guy on discord or pay 5$ a month for them to host your bot for you.
-# OAuth Nitro Bot
+***#If You want a discord bot / any code in python and nodejs feel free to contact Animesh_exe on discord.***
 
-Discord OAuth2 and Nitro Distribution Bot.
+***#why this code you may ask?:***
+
+***#I made this so that people could use this instead of paying like 30$ to buy from some skechy guy on discord or pay 5$ a month for them to host your bot for you which can be done by you by putting a little bit of effort for free***
+# OAuth Discord Bot
+
+Discord OAuth2 Bot.
 
 This bot utilizes Discord's OAuth2 flow to collect authorized user data (including access tokens, refresh tokens, and email), stores them in a local database, and provides administrative slash commands to manage the user base, check token validity, and bulk join users to a specified server.
 
@@ -86,5 +88,6 @@ All commands are slash commands and require either a configured **Owner ID** or 
 
 
 [![This is a screenshot of the help command.](https://iili.io/KSnu6V1.md.png)](https://freeimage.host/i/KSnu6V1)
+
 
 
