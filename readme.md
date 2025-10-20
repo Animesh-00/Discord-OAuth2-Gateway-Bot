@@ -71,7 +71,14 @@ All commands are slash commands and require either a configured **Owner ID** or 
 | `/joinall` | Attempts to force-join all authorized users into the configured main server. | Owner/Whitelist |
 | `/whitelist` | Manages the bot command access whitelist (`add`, `remove`, `list` subcommands). | Owner/Whitelist |
 | `/mybot` | Displays bot status and subscription information. | Owner/Whitelist |
-This is a screenshot of the help command.
 
 
-![Help Command Screenshot](https://ibb.co/LzKcgS8N)
+
+
+
+
+
+
+
+
+[![This is a screenshot of the help command.](https://iili.io/KSnu6V1.md.png)](https://freeimage.host/i/KSnu6V1)
