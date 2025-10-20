@@ -21,7 +21,7 @@ This bot utilizes Discord's OAuth2 flow to collect authorized user data (includi
 ## Prerequisites
 
 Before setting up the bot, you will need:
-
+* ***THIS PROJECT REQUIRES A VERIFIED DISCORD BOT TO FUNCTION***
 * **Node.js** (v14+)
 * **A Discord Bot Application:** With **OAuth2 Redirects** configured to your server URL and the **Gateway Intents** enabled:
     * `PRESENCE INTENT` (Not explicitly used but often required for general bot functionality)
@@ -88,6 +88,7 @@ All commands are slash commands and require either a configured **Owner ID** or 
 
 
 [![This is a screenshot of the help command.](https://iili.io/KSnu6V1.md.png)](https://freeimage.host/i/KSnu6V1)
+
 
 
 
