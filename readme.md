@@ -1,3 +1,6 @@
+#If You wabt a discord bot / any code in python and nodejs feel free to contact Animesh_exe on discord 
+#why this code you may ask?:
+#I mad this so that people could use this instead of pyaing 30$ to buy from some skechy guy on discord or pay 5$ a month for them to host your bot for you.
 # OAuth Nitro Bot
 
 Discord OAuth2 and Nitro Distribution Bot.
@@ -83,4 +86,5 @@ All commands are slash commands and require either a configured **Owner ID** or 
 
 
 [![This is a screenshot of the help command.](https://iili.io/KSnu6V1.md.png)](https://freeimage.host/i/KSnu6V1)
+
 
