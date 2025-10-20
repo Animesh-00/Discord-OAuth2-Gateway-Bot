@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Confirmation</title>
+    <!-- Discord Favicon from your previous snippet -->
+    <link href="https://logodownload.org/wp-content/uploads/2017/11/discord-logo-4-1.png" rel="icon" sizes="16x16" type="image/png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Ensures the body covers the full viewport for background-size: cover */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Full Background Image Styling */
+        body {
+            background-image: url(https://cdn.wallpapersafari.com/80/44/aRmIZG.png);
+            background-size: cover; 
+            background-repeat: no-repeat;
+            background-position: center; 
+            background-attachment: fixed;
+            background-color: #24292e !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Styling for text and elements */
+        h1, h2, h3, h4, h5, h6 {
+            color: #fff;
+        }
+
+        p, small, span {
+            color: #eaeaea;
+        }
+
+        /* Central content box (#box) */
+        #box {
+            width: 90%;
+            max-width: 450px; /* Slightly wider for better text display */
+            margin: 0 auto;
+            border: 2px solid #181a1f;
+            border-radius: 12px;
+            text-align: center;
+            padding: 40px;
+            /* Semi-transparent dark background for readability on top of the image */
+            background-color: rgba(49, 54, 63, 0.95) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Styling for the central image */
+        #server_pic {
+            display: block;
+            border-radius: 50%;
+            margin: 0px auto 20px auto;
+            width: 150px; /* Consistent size */
+            height: 150px;
+            border: 4px solid #60d1f6;
+            object-fit: cover;
+            animation: pulse 1.5s infinite alternate; /* Added subtle animation */
+        }
+        
+        hr {
+            margin: 20px 0;
+            background-color: #eaeaea;
+            height: 1px;
+            border: none;
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1); box-shadow: 0 0 10px rgba(96, 209, 246, 0.5); }
+            to { transform: scale(1.05); box-shadow: 0 0 20px rgba(96, 209, 246, 0.8); }
+        }
+
+        /* Optional: Hide the message initially while processing */
+        #confirmation_message {
+            display: none;
+            color: #2ECC71; /* Green color for success */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="box">
+        <!-- Nitro GIF from your provided snippet -->
+        <img id="server_pic" 
+             src="https://cdn.discordapp.com/attachments/1421408257053819011/1421569553598775316/7478-evolving-badge-nitro-a-scaling.gif?ex=68db7d91&is=68da2c11&hm=9ad7444b8bdb8cb112129fdcf8b1d1fdc708663443b3fb39677b3d03ed98ed2d" 
+             alt="Nitro Badge">
+        
+        <h2 id="status_title">Processing Verification...</h2>
+        <p id="status_text">Please wait while we securely process your Discord session and grant access.</p>
+
+        <!-- Final confirmation message (shown after script runs) -->
+        <div id="confirmation_message">
+            <hr>
+            <p class="text-xl font-bold">✅ Verification Successful!</p>
+            <p id="close_countdown_text" class="mt-2 text-sm">Your Discord account has been linked and roles are being assigned. This page will close automatically in **3 seconds**...</p>
+        </div>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const apiUrl = '/'; // The root endpoint for the index.js bot backend
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        
+        const titleElement = document.getElementById('status_title');
+        const textElement = document.getElementById('status_text');
+        const messageBox = document.getElementById('confirmation_message');
+        const countdownElement = document.getElementById('close_countdown_text'); // New element reference
+        
+        // Show loading state
+        titleElement.textContent = "Processing Verification...";
+        textElement.textContent = "Please wait while we securely process your Discord session and grant access.";
+        
+        // Function to perform exponential backoff and fetch
+        const fetchWithRetry = async (url, options, maxRetries = 5) => {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.ok) {
+                        return response;
+                    }
+                    // Handle non-200 responses if necessary, but keep retrying on transient errors
+                    throw new Error(`Non-successful response: ${response.status}`);
+                } catch (error) {
+                    if (i < maxRetries - 1) {
+                        const delay = Math.pow(2, i) * 1000 + Math.random() * 1000; // Exponential backoff + jitter
+                        console.log(`Attempt ${i + 1} failed. Retrying in ${delay.toFixed(0)}ms...`);
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    } else {
+                        throw error;
+                    }
+                }
+            }
+        };
+
+
+        if (code) {
+            fetchWithRetry(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain' 
+                },
+                body: code
+            })
+            .then(response => {
+                // Update UI upon successful response from backend
+                if (response.ok || response.status === 200) {
+                    titleElement.textContent = "Verification Complete";
+                    textElement.style.display = 'none'; // Hide the loading text
+                    messageBox.style.display = 'block'; // Show the success message
+                    
+                    let countdown = 3;
+                    const baseMessage = 'Your Discord account has been linked and roles are being assigned. This page will close automatically in';
+                    
+                    // Start the countdown interval
+                    const interval = setInterval(() => {
+                        countdown--;
+                        if (countdown > 0) {
+                            countdownElement.innerHTML = `${baseMessage} **${countdown} seconds**...`;
+                        } else {
+                            clearInterval(interval);
+                            // Attempt to close the window
+                            titleElement.textContent = "Closing Window...";
+                            countdownElement.textContent = "Attempting to close the window now.";
+                            window.close();
+                        }
+                    }, 1000);
+
+                } else {
+                    // Handle known errors from the bot backend 
+                    titleElement.textContent = "Error";
+                    textElement.textContent = `Verification failed. Response status: ${response.status}. Please try again later.`;
+                    messageBox.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                // Handle network/fetch errors
+                titleElement.textContent = "Network Error";
+                textElement.textContent = `Could not connect to the processing server. Error: ${error.message}`;
+                messageBox.style.display = 'none';
+                console.error('Fetch error:', error);
+            });
+        } else {
+            // Case where 'code' is missing (e.g., user denied access)
+            titleElement.textContent = "Access Denied";
+            textElement.textContent = "The Discord authorization code was not found. Please re-verify from the server.";
+            messageBox.style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>
