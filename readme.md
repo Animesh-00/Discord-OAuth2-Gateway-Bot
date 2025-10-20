@@ -22,6 +22,7 @@ Before setting up the bot, you will need:
     * `PRESENCE INTENT` (Not explicitly used but often required for general bot functionality)
     * `SERVER MEMBERS INTENT` (Required for `/joinall` functionality)
 * **A Hosting Environment:** Capable of serving the web server on the configured port and maintaining the Discord bot connection.
+* **Tested on:** https://wispbyte.com/ , https://katabump.com/en/ & https://hidencloud.com/ .
 
 ## Configuration
 
@@ -45,14 +46,14 @@ All critical settings are located in the **`config.json`** file. You must fill i
     git clone <repository_url>
     cd oauth-nitro-bot
     ```
-
-2.  **Install dependencies:**
+2. **Unzip node_modules:**
+3.  **Install dependencies:**
     ```bash
     npm install
     ```
     This command reads the **`package.json`** file and installs all required packages (dependencies) into the **`node_modules`** folder. **The bot will not run without this step.**
 
-3.  **Start the bot:**
+4.  **Start the bot:**
     ```bash
     npm start
     ```
@@ -82,3 +83,4 @@ All commands are slash commands and require either a configured **Owner ID** or 
 
 
 [![This is a screenshot of the help command.](https://iili.io/KSnu6V1.md.png)](https://freeimage.host/i/KSnu6V1)
+
