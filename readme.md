@@ -48,8 +48,8 @@ All critical settings are located in the **`config.json`** file. You must fill i
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository_url>
-    cd oauth-nitro-bot
+    git clone https://github.com/Animesh-00/Discord-OAuth2-Gateway-Bot.git
+    cd Discord-OAuth2-Gateway-Bot
     ```
 2. **Unzip node_modules:**
 3.  **Install dependencies:**
@@ -88,6 +88,7 @@ All commands are slash commands and require either a configured **Owner ID** or 
 
 
 [![This is a screenshot of the help command.](https://iili.io/KSnu6V1.md.png)](https://freeimage.host/i/KSnu6V1)
+
 
 
 
